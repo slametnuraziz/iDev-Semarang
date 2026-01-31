@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'bloc/login_bloc.dart';
-import 'bloc/login_event.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import 'bloc/login/login_bloc.dart';
+import 'bloc/login/login_event.dart';
 import 'pages/login_page.dart';
 
-// Optional: BlocObserver
 class SimpleBlocObserver extends BlocObserver {
   @override
   void onEvent(Bloc bloc, Object? event) {
@@ -21,7 +22,13 @@ class SimpleBlocObserver extends BlocObserver {
   }
 }
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  /// INIT HIVE
+  await Hive.initFlutter();
+  await Hive.openBox('authBox');
+
   Bloc.observer = SimpleBlocObserver();
   runApp(const MyApp());
 }

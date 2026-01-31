@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/login_bloc.dart';
-import '../bloc/login_event.dart';
-import '../bloc/login_state.dart';
+import '../bloc/login/login_bloc.dart';
+import '../bloc/login/login_event.dart';
+import '../bloc/login/login_state.dart';
 import 'main_navigation.dart';
 
 class LoginPageBloc extends StatelessWidget {
@@ -65,59 +65,18 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: SafeArea(
-        child: BlocListener<LoginBloc, LoginState>(
-          listener: (context, state) {
-            // Handle LoginSuccess - Navigate to home
-            if (state is LoginSuccess) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (_) =>
-                      const MainNavigation(),
-                ),
-              );
-            }
-
-            // Handle LoginFailure - Show error
-            if (state is LoginFailure) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    state.error,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  backgroundColor: Colors.red,
-                  behavior:
-                      SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(10),
-                  ),
-                  margin: const EdgeInsets.all(
-                    16,
-                  ),
-                ),
-              );
-            }
-          },
-          child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisAlignment:
-                    MainAxisAlignment.center,
-                children: [
-                  _buildHeader(),
-                  const SizedBox(height: 48),
-                  _buildLoginCard(),
-                  const SizedBox(height: 24),
-                ],
-              ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisAlignment:
+                  MainAxisAlignment.center,
+              children: [
+                _buildHeader(),
+                const SizedBox(height: 48),
+                _buildLoginCard(),
+                const SizedBox(height: 24),
+              ],
             ),
           ),
         ),

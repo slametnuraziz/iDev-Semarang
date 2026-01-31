@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/login_bloc.dart';
-import '../bloc/login_state.dart';
+import '../bloc/login/login_bloc.dart';
+import '../bloc/login/login_state.dart';
 import 'home.dart';
-import 'place.dart';
 import 'login_page.dart';
+import 'schedule_page.dart';
+import 'teacher_page.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -17,22 +18,12 @@ class MainNavigation extends StatefulWidget {
 
 class _MainNavigationState
     extends State<MainNavigation> {
-  int _currentIndex = 0;
+  int _currentIndex = 1; // home berada di tengah
 
   final List<Widget> _pages = const [
-    HomePage(),
-    PlaceholderPage(
-      title: "Jadwal",
-      icon: Icons.calendar_today_rounded,
-    ),
-    PlaceholderPage(
-      title: "Nilai",
-      icon: Icons.assessment_rounded,
-    ),
-    PlaceholderPage(
-      title: "Profile",
-      icon: Icons.person_rounded,
-    ),
+    TeacherPage(),
+    HomePage(), // home di tengah
+    SchedulePage(),
   ];
 
   @override
@@ -63,6 +54,10 @@ class _MainNavigationState
           type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(
+              icon: Icon(Icons.people_rounded),
+              label: 'Guru',
+            ),
+            BottomNavigationBarItem(
               icon: Icon(Icons.home_rounded),
               label: 'Home',
             ),
@@ -71,16 +66,6 @@ class _MainNavigationState
                 Icons.calendar_today_rounded,
               ),
               label: 'Jadwal',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.assessment_rounded,
-              ),
-              label: 'Nilai',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_rounded),
-              label: 'Profile',
             ),
           ],
         ),

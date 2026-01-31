@@ -7,44 +7,39 @@ abstract class LoginState extends Equatable {
   List<Object?> get props => [];
 }
 
-// State awal
 class LoginInitial extends LoginState {
   const LoginInitial();
 }
 
-// State ketika proses loading
 class LoginLoading extends LoginState {
   const LoginLoading();
 }
 
-// State ketika login berhasil
 class LoginSuccess extends LoginState {
   final String username;
-  final String name;
-  final String kelas;
+  final int? userId;
 
   const LoginSuccess({
     required this.username,
-    required this.name,
-    required this.kelas,
+    this.userId,
   });
 
   @override
   List<Object?> get props => [
     username,
-    name,
-    kelas,
+    userId ?? 0,
   ];
 }
 
-// State ktika login gagal
 class LoginFailure extends LoginState {
   final String error;
 
   const LoginFailure({required this.error});
+
+  @override
+  List<Object?> get props => [error];
 }
 
-// State ketika user belum login (untuk auto-check)
 class LoginUnauthenticated extends LoginState {
   const LoginUnauthenticated();
 }
